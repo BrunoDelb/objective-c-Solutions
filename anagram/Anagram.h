@@ -14,7 +14,4 @@
 
 - (NSArray *) match:(NSArray *) input;
 
-+ (NSArray<NSString *> *) arrayFromString:(NSString *) input;
-
-
 @end

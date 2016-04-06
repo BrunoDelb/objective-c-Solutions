@@ -8,25 +8,23 @@
 
 #import "Anagram.h"
 
+@interface Anagram ()
+
++ (NSArray<NSString *> *) arrayFromString:(NSString *) input;
+
+@end
+
+
 @implementation Anagram
 
 NSString * word;
 
-//                               ^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings)
-//NSPredicate *containsString = [NSPredicate predicateWithBlock:^BOOL (NSString *string,  NSDictionary *bindings)
-// {
-//  
-//     return true;
-//     
-//     
-// }];
-
 - (id) initWithString:(NSString *) input;
-
 {
     word = input;
     return self;
 }
+
 
 + (NSArray<NSString *> *) arrayFromString:(NSString *) input{
     
@@ -39,68 +37,69 @@ NSString * word;
 }
 
 
-
-// lazy(lazy(each.lowercaseString).filter{contains(wordArray,$0)}).array.count
-- (NSInteger) contains:(NSString *) string in:(NSArray *) array{
-    
-    __block NSUInteger count = 0;
-    
-    void (^filterString)(NSString *obj, NSUInteger idx, BOOL *stop);
-    
-    filterString = ^void(NSString *obj, NSUInteger idx, BOOL *stop) {
-        
-        if ([obj isEqualToString:string]){
-            count++;
-        }
-    };
-    
-    return count;
-    
-}
+//- (NSInteger) contains:(NSString *) string in:(NSArray<NSString *> *) array{
+//    
+//    __block NSUInteger count = 0;
+//    
+//    void (^filterString)(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop);
+//    
+//    filterString = ^void(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        
+//        if ([obj isEqualToString:string]){
+//            count++;
+//        }
+//    };
+//    
+//    [array enumerateObjectsUsingBlock:filterString];
+//    
+//    return count;
+//    
+//}
 
 
 - (NSArray *) match:(NSArray<NSString *> *) input{
     
-    NSArray<NSString *> *wordsArray = [NSMutableArray array];
-    
-    // populate the words array with each character of the word varible
-    wordsArray = [Anagram arrayFromString:word];
+    NSArray<NSString *> *wordsArray = [Anagram arrayFromString:[word lowercaseString]];
     
     NSMutableArray<NSString *> *returnPassed = [NSMutableArray array];
     
     NSInteger i, count = [input count];
     
     for (i = 0; i<count; i++) {
-        
+        // shadow copy of  words array
         NSString *each = [input[i] lowercaseString];
+        NSString *eachOriginal = input[i];
+        NSLog(@" looping %i ",i);
+        NSArray<NSString *> *eachArray = [NSMutableArray array];
+        eachArray = [Anagram arrayFromString:each];
         
-                if ( [each length] == [word length] ){
-                    
-//                    NSInteger eachCount = [self contains:<#(NSString *)#> in:<#(NSArray *)#>]
-                    //[self arrayFromString:each]
-                 if ()
-        
+        if ( [each length] == [word length] ){
+//            NSLog(@"first equal");
+//            NSLog(@" wordsArrayCount %lu ",(unsigned long)[wordsArray count]);
+//            NSLog(@" eachArrayCount %lu ",(unsigned long)[eachArray count]);
+            if ( [wordsArray count] ==  [eachArray count] ){
+               // NSLog(@"second equal");
+                if (![each isEqualToString:[word lowercaseString]]){
+                 //   NSLog(@"third notequal");
+                    // shadow copy of wordsarray and eacharray
+                   NSArray<NSString *> *wordsArraysorted = [[wordsArray copy] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+                    NSArray<NSString *> *eachArraysorted =  [[eachArray copy]sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+//                    NSLog(@"%@",eachArraysorted);
+//                    NSLog(@"%@",wordsArraysorted);
+                    if ([wordsArraysorted isEqual:eachArraysorted]) {
+                        [returnPassed addObject:eachOriginal];
+                    }
                 }
+            }
+        }
+        
         
     }
     
-    return [[NSArray alloc] init];
+    return returnPassed;
 }
 
 
-//let wordArray = Array(word.lowercaseString)
-//var returnPassed = [String]()
-//
-//for (currentIndex,each) in enumerate(input){
-//    if each.lowercaseString.unicodeScalars.endIndex == word.lowercaseString.unicodeScalars.endIndex{
-//
-
-//if lazy(lazy(each.lowercaseString).filter{contains(wordArray,$0)}).array.count == wordArray.count{
-//            if each.lowercaseString != word.lowercaseString{
-//                if lazy(word.lowercaseString).array.sorted(<) == lazy(each.lowercaseString).array.sorted(<){
-//                    returnPassed.append(each)
-//                }}}}}
-//return returnPassed
 
 
 

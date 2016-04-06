@@ -1,11 +1,11 @@
 #import <XCTest/XCTest.h>
 #import "Hamming.h"
 
-@interface test_suite : XCTestCase
+@interface HammingTest : XCTestCase
 
 @end
 
-@implementation test_suite
+@implementation HammingTest
 
 - (void)testNoDifferenceBetweenEmptyStrands {
   NSUInteger result = [Hamming compute:@"" against:@""];

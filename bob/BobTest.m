@@ -1,11 +1,11 @@
 #import <XCTest/XCTest.h>
 #import "Bob.h"
 
-@interface test_suite : XCTestCase
+@interface BobTest : XCTestCase
 
 @end
 
-@implementation test_suite
+@implementation BobTest
 
 - (Bob *)bob {
   return [[Bob alloc] init];

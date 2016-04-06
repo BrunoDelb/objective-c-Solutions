@@ -1,11 +1,11 @@
 #import <XCTest/XCTest.h>
 #import "WordCount.h"
 
-@interface test_suite : XCTestCase
+@interface WordCountTest : XCTestCase
 
 @end
 
-@implementation test_suite
+@implementation WordCountTest
 
 - (void)testCountOneWord {
   WordCount *words = [[WordCount alloc] initWithString:@"word"];
